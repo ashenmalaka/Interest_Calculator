@@ -43,7 +43,6 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jButton_simpleInterest = new javax.swing.JButton();
         jButton_exit = new javax.swing.JButton();
-        jButton_interestRate = new javax.swing.JButton();
         jButton_clearAll = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jTextField_simpleInterestAmount = new javax.swing.JTextField();
@@ -84,6 +83,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jRadioButton_fixedDeposits.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioButton_fixedDeposits.setText("Fixed Deposits");
+        jRadioButton_fixedDeposits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton_fixedDepositsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,9 +163,6 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton_interestRate.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton_interestRate.setText("Interest Rate");
-
         jButton_clearAll.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton_clearAll.setText("Clear All");
         jButton_clearAll.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +173,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jTextField_simpleInterestAmount.setEditable(false);
         jTextField_simpleInterestAmount.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField_simpleInterestAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,7 +232,6 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_clearAll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_exit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_interestRate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_simpleInterest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -273,13 +274,11 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(jButton_interestRate, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(76, 76, 76)
                                 .addComponent(jButton_simpleInterest, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(28, 28, 28)
                                 .addComponent(jButton_clearAll, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(28, 28, 28)
                                 .addComponent(jButton_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -290,6 +289,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jRadioButton_savingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_savingsActionPerformed
         // TODO add your handling code here:
+        if(jRadioButton_savings.isSelected() == true)
+        {
+            jTextField_interestRate.setText("6");
+        }
     }//GEN-LAST:event_jRadioButton_savingsActionPerformed
 
     private void jTextField_depositAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_depositAmountActionPerformed
@@ -310,18 +313,37 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jRadioButton_nrfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_nrfcActionPerformed
         // TODO add your handling code here:
+        if(jRadioButton_nrfc.isSelected() == true)
+        {
+            jTextField_interestRate.setText("10");
+        }
+        
     }//GEN-LAST:event_jRadioButton_nrfcActionPerformed
 
     private void jButton_simpleInterestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_simpleInterestActionPerformed
         // TODO add your handling code here:
+        double amount = Double.parseDouble(jTextField_depositAmount.getText());
+        double interestRate = Double.parseDouble(jTextField_interestRate.getText());
+        int years = Integer.parseInt(jTextField_duration.getText());
+        
+        double simpleInterest = (amount*interestRate*years)/100;
+        jTextField_simpleInterestAmount.setText(""+simpleInterest);
+        
     }//GEN-LAST:event_jButton_simpleInterestActionPerformed
 
     private void jButton_clearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_clearAllActionPerformed
         // TODO add your handling code here:
+        jTextField_customerName.setText("");
+        jTextField_depositAmount.setText("");
+        jTextField_interestRate.setText("");
+        jTextField_duration.setText("");
+        jTextField_simpleInterestAmount.setText("");
+      
     }//GEN-LAST:event_jButton_clearAllActionPerformed
 
     private void jButton_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_exitActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton_exitActionPerformed
 
     private void jTextField_simpleInterestAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_simpleInterestAmountActionPerformed
@@ -335,6 +357,14 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jTextField_durationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_durationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_durationActionPerformed
+
+    private void jRadioButton_fixedDepositsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton_fixedDepositsActionPerformed
+        // TODO add your handling code here:
+        if(jRadioButton_fixedDeposits.isSelected() == true)
+        {
+            jTextField_interestRate.setText("12");
+        }
+    }//GEN-LAST:event_jRadioButton_fixedDepositsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -374,7 +404,6 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_clearAll;
     private javax.swing.JButton jButton_exit;
-    private javax.swing.JButton jButton_interestRate;
     private javax.swing.JButton jButton_simpleInterest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
